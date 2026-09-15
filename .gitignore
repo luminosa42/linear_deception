@@ -1,4 +1,7 @@
 data/
+plots/
+src/__pycache__/
 .vscode/
 .env
+.DS_store
 Claude.md

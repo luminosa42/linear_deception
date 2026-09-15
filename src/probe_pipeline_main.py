@@ -142,7 +142,7 @@ def plot_learning_curve(results):
     plt.tight_layout()
     plt.savefig("data/learning_curve.png", dpi=150)
 
-def small_test(model):
+def small_test_paper(model):
 
     # Load a small dataset
     with open("data/instructed_generated.json") as f:
@@ -170,11 +170,11 @@ def small_test(model):
     #clf, auroc = train_and_eval_probe(X, y, test_size=0.3)
     #print(f"AUROC: {auroc:.3f}")
 
-def production_test(model):
+# Production level
+def generate_features_production(model):
 
     n_layers = model.cfg.n_layers
     candidate_layers = list(range(2, n_layers, 3))
-
     
     # Part 1: Load the full dataset
     with open("data/probe_train.json") as f:
@@ -191,8 +191,11 @@ def production_test(model):
             **{f"X_layer{l}": X_train_by_layer[l] for l in candidate_layers})
     np.savez("data/features_eval.npz", y=y_eval,
             **{f"X_layer{l}": X_eval_by_layer[l] for l in candidate_layers})
-    
 
+    return candidate_layers, n_layers # Use for reading in the next step
+
+def train_and_evaluate_probes(candidate_layers, n_layers):
+    
     # Part 2: Load features and train probes
     loaded_train = np.load("data/features_train.npz")
     loaded_eval = np.load("data/features_eval.npz")
@@ -231,9 +234,9 @@ def main():
     model_name = os.getenv("MODEL_NAME", "Qwen/Qwen2.5-1.5B-Instruct")
     model = HookedTransformer.from_pretrained_no_processing(model_name, device="cpu", dtype=torch.bfloat16)
 
-    #small_test(model)
-    production_test(model)
-
+    #small_test_paper(model)
+    candidate_layers, n_layers = generate_features_production(model)
+    train_and_evaluate_probes(candidate_layers, n_layers)
 
 if __name__ == "__main__":
     sys.exit(main())
