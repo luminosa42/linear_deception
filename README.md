@@ -13,4 +13,28 @@ This is a correlational result: it shows deception-related information is linear
 - Extends it with an activation patching experiment to test whether the probe direction is causally load-bearing, or merely a decodable correlate — the central open question the original paper does not test.
 
 ## Project structure
-(to be updated)
+
+Each file in `src/` is a standalone Jupyter notebook covering one phase of the
+pipeline. They run in order, and each one's outputs are cached to disk so a later
+notebook can be run on its own without repeating the expensive steps.
+
+| Notebook | Phase | Writes |
+| --- | --- | --- |
+| `smoke_test.ipynb` | Environment check: model loads, generation, cache shape, chat template | — |
+| `build_data.ipynb` | Phase 1 — generate honest/deceptive response pairs and split them | `data/probe_{train,eval}.json` |
+| `probe_pipeline_main.ipynb` | Phase 2 — extract activations, train one linear probe per layer | `data/features_*.npz`, `data/baseline_training_summary.json` |
+| `plotting_paper.ipynb` | Figures for comparison with the paper | `plots/*.png` |
+| `intervention.ipynb` | Phase 3 — activation patching (ablation / injection + random control) | `data/intervention_results_*.json`, `plots/*.png` |
+
+`src/common.py` holds the helpers the notebooks share: path setup, model loading,
+activation extraction, cached-feature loading and probe fitting.
+
+The slow, output-overwriting cells (dataset generation, feature extraction, the
+intervention sweeps) are left commented out, since their results are already
+cached in `data/`. Uncomment them to regenerate.
+
+### Running
+
+Select the `interp` conda environment as the notebook kernel. The notebooks
+locate the repo root themselves and `chdir` there, so they work regardless of
+where the kernel starts.
