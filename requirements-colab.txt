@@ -1,0 +1,8 @@
+anthropic
+matplotlib
+numpy
+python-dotenv
+PyYAML
+scikit-learn
+scipy
+transformer-lens
