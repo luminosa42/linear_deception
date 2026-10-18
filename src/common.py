@@ -144,6 +144,8 @@ def load_model(model_name=None, device=None, dtype=None, no_processing=True, pre
     Pass device/dtype explicitly to pin them (the feature caches in data/ were
     extracted on CPU in bfloat16).
     """
+    import torch
+
     model_name = model_name or os.getenv("MODEL_NAME", DEFAULT_MODEL_NAME)
     device = device or ("cuda" if torch.cuda.is_available() else "cpu")
     if dtype is None:
