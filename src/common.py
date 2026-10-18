@@ -6,11 +6,9 @@ the pieces more than one of them needs: path setup, model loading, activation
 extraction, cached-feature loading and probe fitting.
 """
 import os
+import subprocess
+import sys
 from pathlib import Path
-
-import numpy as np
-import torch
-from sklearn.linear_model import LogisticRegression
 
 DEFAULT_MODEL_NAME = "Qwen/Qwen2.5-1.5B-Instruct"
 FEATURES_TRAIN_PATH = "data/features_train.npz"
@@ -32,6 +30,38 @@ def ensure_dirs():
     """Create data/ and plots/ if missing — both are gitignored, so a fresh clone lacks them."""
     for sub in ("data", "plots"):
         Path(sub).mkdir(exist_ok=True)
+
+
+def setup_colab(project_dir="/content/drive/MyDrive/deception-probes", update_repo=True):
+    """Mount Drive, optionally update the repository, and install Colab requirements."""
+    try:
+        import google.colab  # noqa: F401
+    except ImportError:
+        return None
+
+    if not Path("/content/drive/MyDrive").is_dir():
+        from google.colab import drive
+
+        drive.mount("/content/drive")
+
+    project_dir = Path(project_dir)
+    if (project_dir / ".git").is_dir() and update_repo:
+        subprocess.run(["git", "-C", str(project_dir), "pull", "--ff-only"], check=True)
+    elif not (project_dir / ".git").is_dir():
+        subprocess.run(
+            ["git", "clone", "https://github.com/luminosa42/linear_deception.git", str(project_dir)],
+            check=True,
+        )
+
+    os.chdir(project_dir)
+    requirements_file = project_dir / "requirements-colab.txt"
+    if not requirements_file.is_file():
+        raise FileNotFoundError(f"Colab requirements file not found: {requirements_file}")
+    subprocess.run(
+        [sys.executable, "-m", "pip", "install", "-q", "-r", str(requirements_file)],
+        check=True,
+    )
+    return project_dir
 
 
 def init_env(hf_token=None):
@@ -94,6 +124,8 @@ def _model_class(prefer_bridge=False):
 
 def resolve_dtype(device):
     """float32 on CPU (float16 is unsupported in many CPU builds), bf16/fp16 on GPU."""
+    import torch
+
     if device == "cpu":
         return torch.float32
     try:
@@ -140,6 +172,8 @@ def load_model(model_name=None, device=None, dtype=None, no_processing=True, pre
 
 def get_activation(model, prompt_text, response_text, layer):
     """Mean-pooled residual-stream activation over the response tokens only."""
+    import torch
+
     full_text = prompt_text + response_text
     tokens = model.to_tokens(full_text)
     prompt_tokens = model.to_tokens(prompt_text)
@@ -164,6 +198,8 @@ def load_features(train_path=FEATURES_TRAIN_PATH, eval_path=FEATURES_EVAL_PATH,
     Returns (X_train_by_layer, y_train, X_eval_by_layer, y_eval). `layers` defaults
     to whatever X_layer* keys the train file actually contains.
     """
+    import numpy as np
+
     train_loaded = np.load(train_path)
     eval_loaded = np.load(eval_path)
 
@@ -186,6 +222,8 @@ def load_features(train_path=FEATURES_TRAIN_PATH, eval_path=FEATURES_EVAL_PATH,
 
 def fit_probe(X, y, C=1.0, max_iter=1000):
     """Fit the linear probe used throughout: L2 logistic regression on activations."""
+    from sklearn.linear_model import LogisticRegression
+
     clf = LogisticRegression(max_iter=max_iter, C=C)
     clf.fit(X, y)
     return clf
@@ -193,6 +231,9 @@ def fit_probe(X, y, C=1.0, max_iter=1000):
 
 def json_default(o):
     """`json.dump(default=...)` hook for numpy scalars and torch tensors."""
+    import numpy as np
+    import torch
+
     if isinstance(o, np.generic):
         return o.item()
     if isinstance(o, torch.Tensor):
