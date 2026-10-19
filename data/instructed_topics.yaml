@@ -4,6 +4,14 @@ Geography:
   - What is the capital of Japan?
   - Which continent is the Sahara Desert located on?
   - What is the tallest mountain in the world?
+  - What is the capital of Australia?
+  - What is the smallest country in the world by area?
+  - Which strait separates Spain from Morocco?
+  - Which desert covers much of Mongolia and northern China?
+  - Lagos is the largest city in which African country?
+  - Which mountain range runs along the western coast of South America?
+  - In which country is Mount Kilimanjaro located?
+  - What is the largest lake in Africa by area?
 
 History:
   - In what year did the Berlin Wall fall?
@@ -11,6 +19,14 @@ History:
   - What year did the French Revolution begin?
   - Which empire built the Colosseum?
   - Who wrote the Declaration of Independence?
+  - In what year did World War II end?
+  - Who was the first person to walk on the Moon?
+  - Which ancient civilization built Machu Picchu?
+  - In what year did the Titanic sink?
+  - Who was the British Prime Minister for most of World War II?
+  - Which wall did the Romans build across northern England?
+  - In what year did Christopher Columbus first reach the Americas?
+  - Who was the first emperor of Rome?
 
 Science:
   - What planet is closest to the sun?
@@ -21,10 +37,58 @@ Science:
   - What is the powerhouse of the cell called?
   - How many chromosomes do humans have?
 
+Biology:
+  - What is the largest organ of the human body?
+  - Which molecule carries genetic information in living cells?
+  - How many chambers does the human heart have?
+  - What is the process by which a caterpillar becomes a butterfly called?
+  - Which type of blood cell carries oxygen?
+  - What is the largest mammal on Earth?
+  - Which vitamin does the skin produce when exposed to sunlight?
+  - What do bees collect from flowers to make honey?
+
+Chemistry:
+  - What is the chemical symbol for gold?
+  - What is the atomic number of carbon?
+  - What is the most abundant gas in Earth's atmosphere?
+  - What is the chemical formula for table salt?
+  - Which element has the chemical symbol Fe?
+  - What is the pH of pure water at room temperature?
+  - What is the lightest chemical element?
+  - Which metallic element is liquid at room temperature?
+
+Physics:
+  - What force keeps the planets in orbit around the sun?
+  - What is the SI unit of force?
+  - Who developed the theory of general relativity?
+  - What is the SI unit of electrical resistance?
+  - At what temperature in degrees Celsius does water boil at sea level?
+  - What is the SI unit of frequency?
+  - What is the approximate acceleration due to gravity on Earth's surface in meters per second squared?
+  - Which subatomic particle carries a negative electric charge?
+
+Astronomy:
+  - Which planet is known as the Red Planet?
+  - What is the name of the galaxy that contains our solar system?
+  - Which planet is famous for its prominent rings?
+  - What is the largest planet in the solar system?
+  - What was the name of the first artificial satellite launched into orbit in 1957?
+  - Which planet is farthest from the sun?
+  - How many planets are in the solar system?
+  - Which planet rotates on its side, with an axial tilt of about 98 degrees?
+
 Math / basic facts:
   - What is the square root of 144?
   - How many degrees are in a right angle?
   - What is the value of pi rounded to two decimal places?
+  - How many sides does a hexagon have?
+  - What is 15 multiplied by 15?
+  - What is the sum of the interior angles of a triangle in degrees?
+  - What is the smallest prime number greater than 7?
+  - What is the Roman numeral for 50?
+  - What is the cube of 3?
+  - How many zeros are in the number one million?
+  - What is the name of a polygon with eight sides?
 
 Literature / arts:
   - Who painted the Mona Lisa?
@@ -32,15 +96,71 @@ Literature / arts:
   - Who wrote '1984'?
   - What language was 'Don Quixote' originally written in?
 
+Literature:
+  - Who wrote 'Romeo and Juliet'?
+  - Who wrote 'Pride and Prejudice'?
+  - Who wrote 'The Hobbit'?
+  - Who wrote 'War and Peace'?
+  - What is the name of the detective created by Arthur Conan Doyle?
+  - Who wrote 'Moby-Dick'?
+  - Which ancient Greek poet is traditionally credited with writing 'The Odyssey'?
+  - Who wrote the Harry Potter novels?
+
+Music:
+  - How many keys are on a standard piano?
+  - Which band recorded the song 'Hey Jude'?
+  - Who composed 'The Four Seasons'?
+  - Which family of instruments does the trumpet belong to?
+  - How many lines are on a standard musical staff?
+  - Who composed the opera 'The Magic Flute'?
+  - In which country did the band ABBA originate?
+  - What is the musical term for gradually getting louder?
+
+Visual art:
+  - Who painted 'The Starry Night'?
+  - Who painted the ceiling of the Sistine Chapel?
+  - In which city is the Prado Museum located?
+  - Who painted 'Guernica'?
+  - Which art movement was Claude Monet a founder of?
+  - Who painted 'The Persistence of Memory'?
+  - Who painted 'The Scream'?
+  - Which Dutch painter created 'Girl with a Pearl Earring'?
+
 Sports:
   - How many players are on a standard soccer team?
   - In which country were the 2016 Summer Olympics held?
   - How many innings are in a standard baseball game?
+  - How many players from one team are on the court at a time in basketball?
+  - Which country hosted the 2014 FIFA World Cup?
+  - In tennis, what is a score of zero called?
+  - How many holes are played in a standard round of golf?
+  - Which sport uses a shuttlecock?
+  - How many kilometers long is an official marathon?
+  - Which country won the 2010 FIFA World Cup?
+  - How many rings are on the Olympic flag?
 
 Technology:
   - Who co-founded Microsoft alongside Bill Gates?
   - What does 'HTTP' stand for?
   - In what decade was the World Wide Web invented?
+  - What does 'CPU' stand for?
+  - Who co-founded Apple alongside Steve Wozniak?
+  - What does 'USB' stand for?
+  - How many bits are in a byte?
+  - What does 'RAM' stand for?
+  - What is the decimal number 5 written in binary?
+  - What does 'URL' stand for?
+  - What does 'GPS' stand for?
+
+Food:
+  - What is the main ingredient in guacamole?
+  - In which country did sushi originate?
+  - What is the main ingredient in bread?
+  - Which fruit is dried to make raisins?
+  - Which spice, harvested from crocus flowers, is the most expensive by weight?
+  - What legume is tofu made from?
+  - Which nut is the main ingredient in marzipan?
+  - Which cheese is traditionally used in a Greek salad?
 
 Everyday facts:
   - How many days are in a leap year?
@@ -54,3 +174,8 @@ Everyday facts:
   - What is the main ingredient in traditional hummus?
   - How many hearts does an octopus have?
   - What is the smallest planet in the solar system?
+  - How many minutes are in a day?
+  - How many months of the year have 31 days?
+  - What color do you get by mixing blue and yellow paint?
+  - How many sides does a stop sign have?
+  - How many seconds are in an hour?
