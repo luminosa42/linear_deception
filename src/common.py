@@ -135,7 +135,14 @@ def resolve_dtype(device):
     return torch.bfloat16 if bf16_ok else torch.float16
 
 
-def load_model(model_name=None, device=None, dtype=None, no_processing=True, prefer_bridge=False):
+def load_model(
+    model_name=None,
+    device=None,
+    dtype=None,
+    no_processing=True,
+    prefer_bridge=False,
+    load_in_4bit=False,
+):
     """
     Load the model under test.
 
@@ -152,6 +159,37 @@ def load_model(model_name=None, device=None, dtype=None, no_processing=True, pre
         dtype = resolve_dtype(device)
 
     cls = _model_class(prefer_bridge=prefer_bridge)
+    if load_in_4bit:
+        if not prefer_bridge:
+            raise ValueError("4-bit loading currently requires TransformerBridge.")
+        if device != "cuda":
+            raise ValueError("4-bit loading requires device='cuda'.")
+
+        from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
+
+        quantization_config = BitsAndBytesConfig(
+            load_in_4bit=True,
+            bnb_4bit_compute_dtype=dtype,
+            bnb_4bit_quant_type="nf4",
+            bnb_4bit_use_double_quant=True,
+        )
+        tokenizer = AutoTokenizer.from_pretrained(model_name)
+        hf_model = AutoModelForCausalLM.from_pretrained(
+            model_name,
+            quantization_config=quantization_config,
+            torch_dtype=dtype,
+            device_map={"": 0},
+        )
+        model = cls.boot_transformers(
+            model_name,
+            hf_model=hf_model,
+            tokenizer=tokenizer,
+            dtype=dtype,
+        )
+        print(f"Loaded {model_name} in 4-bit NF4 on cuda.")
+        print(f"n_layers={model.cfg.n_layers}, d_model={model.cfg.d_model}")
+        return model
+
     loader_names = (
         ("from_pretrained_no_processing", "boot_transformers")
         if no_processing
