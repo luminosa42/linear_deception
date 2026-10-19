@@ -21,10 +21,14 @@ notebook can be run on its own without repeating the expensive steps.
 | Notebook | Phase | Writes |
 | --- | --- | --- |
 | `smoke_test.ipynb` | Environment check: model loads, generation, cache shape, chat template | — |
-| `build_data.ipynb` | Phase 1 — generate honest/deceptive response pairs and split them | `data/probe_{train,eval}.json` |
+| `build_data.ipynb` | Phase 1 — generate honest/deceptive response pairs and split them | `data/probe_{train,eval}_Qwen2.5-7B-Instruct.json` |
 | `probe_pipeline_main.ipynb` | Phase 2 — extract activations, train one linear probe per layer | `data/features_*.npz`, `data/baseline_training_summary.json` |
-| `plotting_paper.ipynb` | Figures for comparison with the paper | `plots/*.png` |
+| `plotting_stats.ipynb` | Plots for comparison with the paper | `plots/*.png` |
 | `intervention.ipynb` | Phase 3 — activation patching (ablation / injection + random control) | `data/intervention_results_*.json`, `plots/*.png` |
+
+`build_data.ipynb` writes model-tagged dataset files. The Phase 2, plotting, and
+intervention notebooks still load legacy untagged dataset filenames, so they do
+not automatically consume newly generated model-tagged files.
 
 `src/common.py` holds the helpers the notebooks share: path setup, model loading,
 activation extraction, cached-feature loading and probe fitting.
