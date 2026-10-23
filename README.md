@@ -30,8 +30,9 @@ notebook can be run on its own without repeating the expensive steps.
 intervention notebooks still load legacy untagged dataset filenames, so they do
 not automatically consume newly generated model-tagged files.
 
-`src/common.py` holds the helpers the notebooks share: path setup, model loading,
-activation extraction, cached-feature loading and probe fitting.
+`src/common.py` holds shared path, model, cache-loading and probe-fitting helpers.
+`src/feature_extraction.py` holds the multilayer response-feature extractor used by
+the probe and cross-dataset notebooks.
 
 The slow, output-overwriting cells (dataset generation, feature extraction, the
 intervention sweeps) are left commented out, since their results are already
